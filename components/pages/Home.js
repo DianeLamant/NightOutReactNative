@@ -14,7 +14,7 @@ export default function Home({ navigation }) {
             style={styles.button}
             icon="filter-outline"
             mode="outlined"
-            onPress={navigation.navigate('App', {screen: 'Filters'})}
+            onPress={() => navigation.navigate('Filters')}
           >
             Filters
           </Button>
@@ -22,7 +22,7 @@ export default function Home({ navigation }) {
             style={styles.button}
             icon="plus-circle-outline"
             mode="outlined"
-            onPress={navigation.navigate('App', {screen: 'AddPlace'})}
+            onPress={() => navigation.navigate('AddPlace')}
           >
             Add a place
           </Button>

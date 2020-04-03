@@ -1,15 +1,11 @@
 import React from 'react';
-import { Text, View } from 'react-native';
+import { TextInput } from "react-native-paper";
+import { Text } from 'react-native';
 
+export default function Map({ naviguation }) {
 
-export default function Map({ navigation }) {
-
-    return (
-      <View>
-        <Text> Map </Text>
-
-      </View>
-    )
+    return  <View>
+        <Text>MAP</Text>
+    </View>
 }
-
 

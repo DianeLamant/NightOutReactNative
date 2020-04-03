@@ -1,7 +1,10 @@
 import React, { useState } from 'react';
-import { StyleSheet, View, Text } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import { Button } from "react-native-paper";
 import Select from 'react-native-select-plus';
+import PlacesInput from 'react-native-places-input';
+
+import { GOOGLE_API_KEY } from 'react-native-dotenv';
 
 import TextInput from '../atoms/TextInput';
 
@@ -11,9 +14,21 @@ export default function AddPlace({ navigation }) {
   const establishments = [{key:0, label: 'Restaurant'}, {key:1, label:'Bar'}, {key:2, label:'Hotel'}, {key:3, label:'Supermarket'}]
   const prices = [{key: 0, label: '€'}, {key: 1, label: '€€'}, {key: 2, label: '€€€'}, {key: 3, label: '€€€€'}]
 
-  function handleChange(key, value) {
-    console.log(key, value);
+  function handlePlaceSelect(place) {
+    let placeLocation = {
+      address: place.result.formatted_address,
+      location: {
+        lat: place.result.geometry.location.lat,
+        lng: place.result.geometry.location.lng
+      }
+    }
+    setPlace(prevState=> ({
+      ...prevState,
+      placeLocation : placeLocation
+    }))
+  }
 
+  function handleChange(key, value) {
     setPlace(prevState=> ({
       ...prevState,
       [key] : value
@@ -21,11 +36,9 @@ export default function AddPlace({ navigation }) {
   }
 
   function handleSubmit() {
-
-    if(place.establishments != null && place.name != null && place.description != null && place.address != null) {
+    if(place.establishment != null && place.name != null && place.description != null && place.placeLocation != null) {
       place.name.trim();
       place.description.trim();
-      place.address.trim();
 
       fetch(`http://49e50ff5-a43f-4239-a4f0-3eb508bd9ab6.pub.cloud.scaleway.com:3003/places`, {
         method: 'POST',
@@ -38,6 +51,8 @@ export default function AddPlace({ navigation }) {
         navigation.navigate('Home')
 
       })
+    } else {
+      alert('Missing fields')
     }
   }
 
@@ -54,14 +69,32 @@ export default function AddPlace({ navigation }) {
         <TextInput
           value={'name'}
           handleChange={handleChange}
+          type={'outlined'}
         />
         <TextInput
           value={'description'}
           handleChange={handleChange}
+          type={'outlined'}
         />
-        <TextInput
-          value={'address'}
-          handleChange={handleChange}
+        <PlacesInput
+          stylesContainer={{
+            position: 'relative',
+            alignSelf: 'stretch',
+            margin: 0,
+            top: 0,
+            left: 0,
+            right: 0,
+            bottom: 0,
+            borderColor: '#dedede',
+            borderWidth: 1,
+          }}
+          stylesList={{
+              top: 50
+          }}
+          googleApiKey={GOOGLE_API_KEY}
+          placeHolder={"Enter an address"}
+          language={"en-US"}
+          onSelect={handlePlaceSelect}
         />
 
         <Select
@@ -86,15 +119,12 @@ export default function AddPlace({ navigation }) {
 const styles = StyleSheet.create({
   container: {
       flex: 1,
+      backgroundColor: '#fff',
   },
   form: {
       height: '80%',
-      justifyContent: 'space-around'
-  },
-  schedule: {
-    flexDirection: 'row',
-    justifyContent: 'space-around',
-    alignItems: 'center'
+      justifyContent: 'space-around',
+      backgroundColor: '#fff',
   }
 });
 

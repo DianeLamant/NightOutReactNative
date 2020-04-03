@@ -1,12 +1,14 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
+import { GlobalState } from '../store';
 import { StyleSheet, Text, View } from 'react-native';
 import { Avatar, Button } from "react-native-paper";
 
 import TextInput from '../atoms/TextInput';
 
-export default function Login({ navigation, setIsLogged }) {
+export default function Login({ navigation }) {
 
     const [ user, setUser ] = useState({});
+    const { dispatch } = useContext(GlobalState);
 
     function handleChange(key, value) {
         setUser(prevState=> ({
@@ -26,7 +28,10 @@ export default function Login({ navigation, setIsLogged }) {
         .then((res) => {
             for(let oneUser of res) {
                 if(oneUser.email === user.email && oneUser.password == oneUser.password) {
-                    return setIsLogged(true);
+                    dispatch({
+                        type: 'setIsLogged',
+                        payload: { isLogged: true},
+                    });
                 }
             }
             alert('Wrong email or password')

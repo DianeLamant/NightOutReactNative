@@ -1,5 +1,5 @@
 Arguments: 
-  /home/diane/.nvm/versions/node/v12.14.0/bin/node /usr/share/yarn/bin/yarn.js add @react-navigation/material-bottom-tab
+  /home/diane/.nvm/versions/node/v12.14.0/bin/node /usr/share/yarn/bin/yarn.js add expo-location@~8.0.0
 
 PATH: 
   /home/diane/.nvm/versions/node/v12.14.0/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin
@@ -14,17 +14,17 @@ Platform:
   linux x64
 
 Trace: 
-  Error: https://registry.yarnpkg.com/@react-navigation%2fmaterial-bottom-tab: Not found
-      at Request.params.callback [as _callback] (/usr/share/yarn/lib/cli.js:66947:18)
-      at Request.self.callback (/usr/share/yarn/lib/cli.js:140665:22)
-      at Request.emit (events.js:210:5)
-      at Request.<anonymous> (/usr/share/yarn/lib/cli.js:141637:10)
-      at Request.emit (events.js:210:5)
-      at IncomingMessage.<anonymous> (/usr/share/yarn/lib/cli.js:141559:12)
-      at Object.onceWrapper (events.js:299:28)
-      at IncomingMessage.emit (events.js:215:7)
-      at endReadableNT (_stream_readable.js:1184:12)
-      at processTicksAndRejections (internal/process/task_queues.js:80:21)
+  Error: write EPIPE
+      at afterWriteDispatched (internal/stream_base_commons.js:150:25)
+      at writeGeneric (internal/stream_base_commons.js:141:3)
+      at Socket._writeGeneric (net.js:771:11)
+      at Socket._write (net.js:783:8)
+      at doWrite (_stream_writable.js:431:12)
+      at writeOrBuffer (_stream_writable.js:415:5)
+      at Socket.Writable.write (_stream_writable.js:305:11)
+      at Object.clearLine (readline.js:1270:17)
+      at clearLine (/usr/share/yarn/lib/cli.js:49657:12)
+      at clearNthLine (/usr/share/yarn/lib/cli.js:49695:5)
 
 npm manifest: 
   {
@@ -38,19 +38,24 @@ npm manifest:
     },
     "dependencies": {
       "@react-native-community/masked-view": "0.1.5",
-      "@react-navigation/material-top-tabs": "^5.1.7",
+      "@react-navigation/material-bottom-tabs": "^5.1.7",
       "@react-navigation/native": "^5.1.4",
       "@react-navigation/stack": "^5.2.9",
       "expo": "~36.0.0",
+      "expo-location": "~8.0.0",
+      "expo-permissions": "^8.1.0",
       "react": "~16.9.0",
       "react-dom": "~16.9.0",
       "react-native": "https://github.com/expo/react-native/archive/sdk-36.0.0.tar.gz",
+      "react-native-dotenv": "^0.2.0",
       "react-native-elements": "^1.2.7",
       "react-native-gesture-handler": "~1.5.0",
       "react-native-paper": "^3.6.0",
+      "react-native-places-input": "^1.1.0",
       "react-native-reanimated": "~1.4.0",
       "react-native-safe-area-context": "0.6.0",
       "react-native-screens": "2.0.0-alpha.12",
+      "react-native-select-plus": "^0.1.10",
       "react-native-tab-view": "^2.13.0",
       "react-native-web": "~0.11.7"
     },
@@ -1218,12 +1223,10 @@ Lockfile:
       react-is "^16.13.0"
       use-subscription "^1.4.0"
   
-  "@react-navigation/material-top-tabs@^5.1.7":
+  "@react-navigation/material-bottom-tabs@^5.1.7":
     version "5.1.7"
-    resolved "https://registry.yarnpkg.com/@react-navigation/material-top-tabs/-/material-top-tabs-5.1.7.tgz#4975d5d02fe1beb6665bd1e2b49a627c5800d50f"
-    integrity sha512-GffgvFmbr/wpV7B+sBou+OUf1qqwCjvbeNoZpKjekU795ZqnC+KPRvLNeGX7Pd9CQ1+K/7O4CHvs9O22v5mEaQ==
-    dependencies:
-      color "^3.1.2"
+    resolved "https://registry.yarnpkg.com/@react-navigation/material-bottom-tabs/-/material-bottom-tabs-5.1.7.tgz#273205da45d91c78e17777e0fe6ae2b4d3117a59"
+    integrity sha512-ARnPx3UHlXOUIYa1AulsgWnh3wKg6+v8QbxuWq5EQaWQvY3lwtsSbuQHK5qNPEG/LCSuv3OARnaKmFf0BF7p/A==
   
   "@react-navigation/native@^5.1.4":
     version "5.1.4"
@@ -1598,6 +1601,13 @@ Lockfile:
     version "2.1.2"
     resolved "https://registry.yarnpkg.com/atob/-/atob-2.1.2.tgz#6d9517eb9e030d2436666651e86bd9f6f13533c9"
     integrity sha512-Wm6ukoaOGJi/73p/cl2GvLjTI5JM1k/O14isD73YML8StrH/7/lRFgmg8nICZgD3bZZvjwCGxtMOD3wWNAu8cg==
+  
+  babel-plugin-dotenv@0.1.1:
+    version "0.1.1"
+    resolved "https://registry.yarnpkg.com/babel-plugin-dotenv/-/babel-plugin-dotenv-0.1.1.tgz#9c8faea67a7c034fe7e94099187ab2e7573400bc"
+    integrity sha1-nI+upnp8A0/n6UCZGHqy51c0ALw=
+    dependencies:
+      dotenv "^2.0.0"
   
   babel-plugin-dynamic-import-node@^2.3.0:
     version "2.3.0"
@@ -2276,6 +2286,11 @@ Lockfile:
     resolved "https://registry.yarnpkg.com/didyoumean/-/didyoumean-1.2.1.tgz#e92edfdada6537d484d73c0172fd1eba0c4976ff"
     integrity sha1-6S7f2tplN9SE1zwBcv0eugxJdv8=
   
+  dotenv@^2.0.0:
+    version "2.0.0"
+    resolved "https://registry.yarnpkg.com/dotenv/-/dotenv-2.0.0.tgz#bd759c357aaa70365e01c96b7b0bec08a6e0d949"
+    integrity sha1-vXWcNXqqcDZeAclrewvsCKbg2Uk=
+  
   ee-first@1.1.1:
     version "1.1.1"
     resolved "https://registry.yarnpkg.com/ee-first/-/ee-first-1.1.1.tgz#590c61156b0ae2f4f0255732a158b266bc56b21d"
@@ -2465,6 +2480,11 @@ Lockfile:
     integrity sha512-48i4dUCaqPTwSri79yummKwg6vE6loI7d4iHCrbG4EEuN3fhS8I9xU60CEkoNZTziH9zK0iw4KSjr7DbXUAaCw==
     dependencies:
       invariant "^2.2.4"
+  
+  expo-permissions@^8.1.0:
+    version "8.1.0"
+    resolved "https://registry.yarnpkg.com/expo-permissions/-/expo-permissions-8.1.0.tgz#a7f2ee91ba76ce3a467e7b10adaa9ca5201b226f"
+    integrity sha512-QBHD+1J9+sGFnhoEGzMRchPweeEE0OJ9ehG/0l1BMRBA7qsLS9vRC1FTJ55NwjI0Kr4RTha9r6ZX1kZHT09f/w==
   
   expo-permissions@~8.0.0:
     version "8.0.0"
@@ -4437,6 +4457,13 @@ Lockfile:
     resolved "https://registry.yarnpkg.com/react-is/-/react-is-16.13.1.tgz#789729a4dc36de2999dc156dd6c1d9c18cea56a4"
     integrity sha512-24e6ynE2H+OKt4kqsOvNd8kBpV65zoxbA4BVsEOB3ARVWQki/DHzaUoC5KuON/BiccDaCCTZBuOcfZs70kR8bQ==
   
+  react-native-dotenv@^0.2.0:
+    version "0.2.0"
+    resolved "https://registry.yarnpkg.com/react-native-dotenv/-/react-native-dotenv-0.2.0.tgz#311551cb6a35a3dcfede648bded55c0e3ece579d"
+    integrity sha1-MRVRy2o1o9z+3mSL3tVcDj7OV50=
+    dependencies:
+      babel-plugin-dotenv "0.1.1"
+  
   react-native-elements@^1.2.7:
     version "1.2.7"
     resolved "https://registry.yarnpkg.com/react-native-elements/-/react-native-elements-1.2.7.tgz#1eca2db715c41722aeb67aea62bd2a4621adb134"
@@ -4476,6 +4503,13 @@ Lockfile:
       color "^3.1.2"
       react-native-safe-area-view "^0.14.6"
   
+  react-native-places-input@^1.1.0:
+    version "1.1.0"
+    resolved "https://registry.yarnpkg.com/react-native-places-input/-/react-native-places-input-1.1.0.tgz#6f44cea27c7b806eb3d66d3fb978c75d24da9922"
+    integrity sha512-/ctkNTlheAZ4O/mAGEi8AaD3kpMGgyj3hlV9z1ZLgmlFm52diO39ZOaugneEAitKRaDTj1KczxmLdkQ2Y9uFTg==
+    dependencies:
+      prop-types "^15.7.2"
+  
   react-native-ratings@^6.3.0:
     version "6.5.0"
     resolved "https://registry.yarnpkg.com/react-native-ratings/-/react-native-ratings-6.5.0.tgz#a1606ccba3c5b54eec8e6cfa4765a45cf0e4ab8d"
@@ -4507,6 +4541,11 @@ Lockfile:
     integrity sha512-x9M7FEdcm97bVDp3pi//nhduJHLFMrmDQs0fq299yx3kHdgHbrmhsa8jgW4HvDQhjyPE0FWADY/GrXFuPRj80w==
     dependencies:
       debounce "^1.2.0"
+  
+  react-native-select-plus@^0.1.10:
+    version "0.1.10"
+    resolved "https://registry.yarnpkg.com/react-native-select-plus/-/react-native-select-plus-0.1.10.tgz#3136f7683c86c56d96176dddebdd6f4161c2f79f"
+    integrity sha512-TBSBxOndgERDGGwiEQE9I1vcL3PiNwl/o4y4Jb1bXWkmO1PcuBVUNubb1LVa5KEH3aeqfBl+5umQ2lwQH9F5ZA==
   
   react-native-status-bar-height@^2.2.0:
     version "2.5.0"

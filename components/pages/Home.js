@@ -1,12 +1,15 @@
-import React, { useEffect, useState } from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import React, { useEffect, useState, useContext } from 'react';
+import { GlobalState } from '../store';
+import { StyleSheet, Text, View, ScrollView } from 'react-native';
 import { Button } from "react-native-paper";
 
 import PlaceRow from '../molecules/PlaceRow';
 
 export default function Home({ navigation }) {
 
-  const [ places, setPlaces ] = useState([])
+  console.log(useContext(GlobalState));
+
+  const { dispatch, state: { places } } = useContext(GlobalState);
 
   useEffect(() => {
     fetch('http://49e50ff5-a43f-4239-a4f0-3eb508bd9ab6.pub.cloud.scaleway.com:3003/places', {
@@ -17,7 +20,10 @@ export default function Home({ navigation }) {
     })
         .then((res) => res.json())
         .then(function(data) {
-          setPlaces(data);
+          dispatch({
+            type: 'setPlaces',
+            payload: { places: data},
+          });
         })
 }, [])
 
@@ -41,14 +47,16 @@ export default function Home({ navigation }) {
             Add a place
           </Button>
         </View>
-        {places.length > 0 &&
         <View style={styles.list}>
-          {places.map((data, i) => (
-            <PlaceRow place={data}/>
-          ))}
 
-        </View>
+        {places.length > 0 &&
+          <ScrollView>
+            {places.map((place, i) => (
+              <PlaceRow key={place.id} place={place}/>
+            ))}
+          </ScrollView>
         }
+        </View>
 
       </View>
     )

@@ -1,4 +1,6 @@
-import React, { useState } from 'react';
+import React, { useReducer, useContext } from 'react';
+import { initialState, reducer, GlobalState } from './components/store';
+
 import { DefaultTheme, Provider as PaperProvider } from 'react-native-paper';
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
@@ -9,6 +11,18 @@ import Register from './components/pages/Register';
 import Nav from './components/pages/Nav';
 import Filters from './components/pages/Filters';
 import AddPlace from './components/pages/AddPlace';
+
+export default function Reducer () {
+
+  const [ state, dispatch ] = useReducer(reducer, initialState);
+
+  return <>
+      <GlobalState.Provider value={{state, dispatch}}>
+          <App />
+      </GlobalState.Provider>
+
+  </>
+}
 
 const Stack = createStackNavigator();
 const theme = {
@@ -21,9 +35,9 @@ const theme = {
   },
 };
 
-export default function App() {
+function App() {
 
-  const [ isLogged, setIsLogged ] = useState(false)
+  const { state: { isLogged } } = useContext(GlobalState);
 
   return (
     <PaperProvider theme={theme}>
@@ -36,9 +50,7 @@ export default function App() {
         </Stack.Navigator>
         :
         <Stack.Navigator initialRouteName="Login">
-          <Stack.Screen name="Login" options={headerStyle}>
-            {props => <Login {...props} setIsLogged={setIsLogged} />}
-          </Stack.Screen>
+          <Stack.Screen name="Login" component={Login} options={headerStyle} />
           <Stack.Screen name="Register" component={Register} options={headerStyle} />
         </Stack.Navigator>
 

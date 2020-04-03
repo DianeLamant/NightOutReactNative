@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
+import { GlobalState } from '../store';
 import { StyleSheet, View } from 'react-native';
 import { Button } from "react-native-paper";
 import Select from 'react-native-select-plus';
@@ -10,6 +11,7 @@ import TextInput from '../atoms/TextInput';
 
 export default function AddPlace({ navigation }) {
 
+  const { dispatch, state: { places } } = useContext(GlobalState);
   const [ place, setPlace ] = useState({});
   const establishments = [{key:0, label: 'Restaurant'}, {key:1, label:'Bar'}, {key:2, label:'Hotel'}, {key:3, label:'Supermarket'}]
   const prices = [{key: 0, label: '€'}, {key: 1, label: '€€'}, {key: 2, label: '€€€'}, {key: 3, label: '€€€€'}]
@@ -17,9 +19,9 @@ export default function AddPlace({ navigation }) {
   function handlePlaceSelect(place) {
     let placeLocation = {
       address: place.result.formatted_address,
-      location: {
-        lat: place.result.geometry.location.lat,
-        lng: place.result.geometry.location.lng
+      coords: {
+        latitude: place.result.geometry.location.lat,
+        longitude: place.result.geometry.location.lng
       }
     }
     setPlace(prevState=> ({
@@ -40,6 +42,16 @@ export default function AddPlace({ navigation }) {
       place.name.trim();
       place.description.trim();
 
+      if(place.establishment === "Supermarket") {
+          setPlace(prevState=> ({...prevState, icon : 'cart'}))
+      } else if (place.establishment === 'Bar') {
+        setPlace(prevState=> ({...prevState, icon : 'glass-cocktail'}))
+      } else if (place.establishment === "Hotel") {
+        setPlace(prevState=> ({...prevState, icon : 'bed-empty'}))
+      } else if(place.establishment === 'Restaurant') {
+        setPlace(prevState=> ({...prevState, icon : 'silverware-fork-knife'}))
+      }
+
       fetch(`http://49e50ff5-a43f-4239-a4f0-3eb508bd9ab6.pub.cloud.scaleway.com:3003/places`, {
         method: 'POST',
         headers: {
@@ -48,6 +60,10 @@ export default function AddPlace({ navigation }) {
         body: JSON.stringify(place)
       })
       .then(() => {
+        dispatch({
+          type: 'setPlaces',
+          payload: { places: [...places, place]},
+        });
         navigation.navigate('Home')
 
       })
@@ -96,7 +112,6 @@ export default function AddPlace({ navigation }) {
           language={"en-US"}
           onSelect={handlePlaceSelect}
         />
-
         <Select
           data={prices}
           width={300}

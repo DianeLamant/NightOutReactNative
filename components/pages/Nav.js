@@ -10,32 +10,32 @@ const Tab = createMaterialBottomTabNavigator();
 export default function Nav({ navigation }) {
 
     return <Tab.Navigator
-            shifting={true}
-            sceneAnimationEnabled={false}
-            activeColor="lightblue"
-            inactiveColor="lightgrey"
-            barStyle={{ backgroundColor: 'white' }}
-            >
-            <Tab.Screen
-                name="Home"
-                component={Home}
-                options={{
-                tabBarIcon: 'home',
-                }}
-            />
-            <Tab.Screen
-                name="Map"
-                component={Map}
-                options={{
-                tabBarIcon: 'map-search',
-                }}
-            />
-            <Tab.Screen
-                name="Favorite"
-                component={Favorite}
-                options={{
-                tabBarIcon: 'heart',
-                }}
-            />
-        </Tab.Navigator>
+        shifting={true}
+        sceneAnimationEnabled={false}
+        activeColor="lightblue"
+        inactiveColor="lightgrey"
+        barStyle={{ backgroundColor: 'white' }}
+        >
+        <Tab.Screen
+            name="Home"
+            component={Home}
+            options={{
+            tabBarIcon: 'home',
+            }}
+        />
+        <Tab.Screen
+            name="Map"
+            component={Map}
+            options={{
+            tabBarIcon: 'map-search',
+            }}
+        />
+        <Tab.Screen
+            name="Favorite"
+            component={Favorite}
+            options={{
+            tabBarIcon: 'heart',
+            }}
+        />
+    </Tab.Navigator>
 }

@@ -31,8 +31,8 @@ export default function App() {
         {isLogged ?
         <Stack.Navigator initialRouteName="Home">
           <Stack.Screen name="Home" component={Nav} options={headerStyle} />
-          <Stack.Screen name="Filters" component={Filters} />
-          <Stack.Screen name="AddPlace" component={AddPlace} />
+          <Stack.Screen name="Filters" component={Filters} options={headerStyle} />
+          <Stack.Screen name="AddPlace" component={AddPlace} options={headerStyle} />
         </Stack.Navigator>
         :
         <Stack.Navigator initialRouteName="Login">

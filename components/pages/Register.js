@@ -9,16 +9,15 @@ export default function Register({ navigation }) {
     const [ user, setUser ] = useState({});
 
     function handleChange(key, value) {
-
         setUser(prevState=> ({
             ...prevState,
-            [key] : value
+            [key] : value.trim()
         }))
     }
 
     function handleSubmit() {
-
-        if(user.username && user.email && user.password) {
+        if(user.username != null && user.email != null && user.password != null &&
+            user.username.length > 3 && user.email.length > 6 && user.password.length > 6) {
             fetch(`http://49e50ff5-a43f-4239-a4f0-3eb508bd9ab6.pub.cloud.scaleway.com:3003/users`, {
                 method: 'POST',
                 headers: {
@@ -42,23 +41,19 @@ export default function Register({ navigation }) {
         <View style={styles.formContainer}>
             <View style={styles.form}>
                 <TextInput
-                    style={styles.formRow}
                     value={'username'}
                     handleChange={handleChange}
                 />
                 <TextInput
-                    style={styles.formRow}
                     value={'email'}
                     handleChange={handleChange}
                 />
                 <TextInput
                     type='password'
-                    style={styles.formRow}
                     value={'password'}
                     handleChange={handleChange}
                 />
                 <Button
-                    style={styles.formRow}
                     // icon="camera"
                     mode="outlined"
                     onPress={handleSubmit}

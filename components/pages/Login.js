@@ -9,10 +9,9 @@ export default function Login({ navigation, setIsLogged }) {
     const [ user, setUser ] = useState({});
 
     function handleChange(key, value) {
-
         setUser(prevState=> ({
             ...prevState,
-            [key] : value
+            [key] : value.trim()
         }))
     }
 
@@ -43,17 +42,14 @@ export default function Login({ navigation, setIsLogged }) {
         <View style={styles.formContainer}>
             <View style={styles.form}>
                 <TextInput
-                    style={styles.formRow}
                     value={'email'}
                     handleChange={handleChange}
                 />
                 <TextInput
-                    style={styles.formRow}
                     value={'password'}
                     handleChange={handleChange}
                 />
                 <Button
-                    style={styles.formRow}
                     // icon="camera"
                     mode="outlined"
                     onPress={handleSubmit}

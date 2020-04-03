@@ -4,9 +4,6 @@ import { Button } from "react-native-paper";
 
 export default function Home({ navigation }) {
 
-  console.log(navigation);
-
-
     return (
       <View style={styles.container}>
         <View style={styles.buttons}>
@@ -14,7 +11,7 @@ export default function Home({ navigation }) {
             style={styles.button}
             icon="filter-outline"
             mode="outlined"
-            onPress={navigation.navigate('App', {screen: 'Filters'})}
+            onPress={() => navigation.navigate('Filters')}
           >
             Filters
           </Button>
@@ -22,7 +19,7 @@ export default function Home({ navigation }) {
             style={styles.button}
             icon="plus-circle-outline"
             mode="outlined"
-            onPress={navigation.navigate('App', {screen: 'AddPlace'})}
+            onPress={() => navigation.navigate('AddPlace')}
           >
             Add a place
           </Button>

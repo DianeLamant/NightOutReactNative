@@ -32,6 +32,11 @@ export default function Login({ navigation }) {
                         type: 'setIsLogged',
                         payload: { isLogged: true},
                     });
+                    dispatch({
+                        type: 'setUser',
+                        payload: { user: {username: oneUser.username}},
+                    });
+                    return;
                 }
             }
             alert('Wrong email or password')

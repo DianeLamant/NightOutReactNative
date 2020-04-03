@@ -7,8 +7,6 @@ import PlaceRow from '../molecules/PlaceRow';
 
 export default function Home({ navigation }) {
 
-  console.log(useContext(GlobalState));
-
   const { dispatch, state: { places } } = useContext(GlobalState);
 
   useEffect(() => {
@@ -49,12 +47,17 @@ export default function Home({ navigation }) {
         </View>
         <View style={styles.list}>
 
-        {places.length > 0 &&
+        {places.length > 0 ?
           <ScrollView>
             {places.map((place, i) => (
-              <PlaceRow key={place.id} place={place}/>
+              <PlaceRow navigation={navigation} key={place.id} place={place}/>
             ))}
           </ScrollView>
+          :
+          <View style={styles.nolist}>
+            <Text style={styles.h3}>Please wait</Text>
+            <Text style={styles.h4}>If nothing happens, maybe we have nothing in our database, you can add a place </Text>
+          </View>
         }
         </View>
 
@@ -79,6 +82,21 @@ const styles = StyleSheet.create({
     },
     list: {
       flex: 9,
+    },
+    nolist: {
+      flex: 1,
+      justifyContent: 'center',
+      alignItems: 'center',
+      paddingHorizontal: 20
+    },
+    h3: {
+      fontSize: 20,
+      color: 'lightblue'
+    },
+    h4: {
+      fontSize: 12,
+      color: 'lightgrey',
+      textAlign: 'center'
     }
 });
 

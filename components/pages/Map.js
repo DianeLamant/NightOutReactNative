@@ -8,7 +8,7 @@ import MapView, { Marker, LatLng } from 'react-native-maps';
 
 export default function Map({ navigation }) {
 
-    const { state: { places } } = useContext(GlobalState);
+    const { dispatch, state: { places } } = useContext(GlobalState);
 
     const [position, setPosition] = useState(null);
     const [ region, setRegion ] = useState(null);
@@ -48,7 +48,15 @@ export default function Map({ navigation }) {
 
     function onRegionChange(region) {
         setRegion({ region });
-      }
+    }
+
+    function handlePress(place) {
+        dispatch({
+            type: 'setPlace',
+            payload: { place: place},
+          });
+        navigation.navigate('PlaceDetails')
+    }
 
     return  <View style={styles.container}>
         <Text>{message}</Text>
@@ -76,6 +84,7 @@ export default function Map({ navigation }) {
                         coordinate={place.placeLocation.coords}
                         title={place.name}
                         description={place.establishment}
+                        onCalloutPress={() => handlePress(place)}
                     />
                 ))
             }
